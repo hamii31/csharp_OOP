@@ -1,0 +1,42 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace NeedForSpeed
+{
+    public class Vehicle
+    {
+        public double DefaultFuelConsumption { get; set; }
+        public virtual double FuelConsumption { get; set; }
+        public double Fuel { get; set; }
+        public int HorsePower { get; set; }
+
+        public Vehicle(int horsePower, double fuel)
+        {
+            this.HorsePower = horsePower;
+            this.Fuel = fuel;
+        }
+
+        public virtual void Drive(double km)
+        {
+            if (this.GetType().Name == "Car")
+            {
+                this.DefaultFuelConsumption = 3;
+            }
+            else if (this.GetType().Name == "RaceMotorcycle")
+            {
+                this.DefaultFuelConsumption = 8;
+            }
+            else if (this.GetType().Name == "SportCar")
+            {
+                this.DefaultFuelConsumption = 10;
+            }
+            else
+            {
+                this.DefaultFuelConsumption = 1.25;
+            }
+            this.Fuel -= this.DefaultFuelConsumption * km;
+            Console.WriteLine(Fuel);
+        }
+    }
+}
