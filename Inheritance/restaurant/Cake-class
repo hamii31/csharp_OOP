@@ -1,0 +1,24 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Restaurant
+{
+    public class Cake : Dessert
+    {
+        public decimal CakePrice { get; set; }
+        public Cake(string name, decimal price, double grams, double calories) : base(name, price, grams, calories)
+        {
+            price = 5;
+            this.CakePrice = price;
+            grams = 250;
+            this.Grams = grams;
+            calories = 1000;
+            this.Calories = calories;
+        }
+        public override string ToString()
+        {
+            return $"Type: {GetType().Name} Name: {Name} Price: {CakePrice} Grams: {Grams} Calories {Calories}";
+        }
+    }
+}
