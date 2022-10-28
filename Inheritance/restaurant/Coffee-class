@@ -1,0 +1,26 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Restaurant
+{
+    public class Coffee : HotBeverage
+    {
+        public double CoffeeMilliliters { get; set; }
+        public decimal CoffeePrice { get; set; }
+        public double Caffeine { get; set; }
+
+        public Coffee(string name, decimal price, double milliliters, double caffeine) : base(name, price, milliliters)
+        {
+            milliliters = 50;
+            price = Convert.ToDecimal(3.50);
+            this.CoffeeMilliliters = milliliters;
+            this.CoffeePrice = price;
+            this.Caffeine = caffeine;
+        }
+        public override string ToString()
+        {
+            return $"Type: {GetType().Name} Name: {Name} Price: {CoffeePrice:f2} Milliliters: {CoffeeMilliliters} Caffeine {Caffeine}";
+        }
+    }
+}
