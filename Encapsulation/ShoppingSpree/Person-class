@@ -1,0 +1,52 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ShoppingSpree
+{
+    public class Person
+    {
+        private string name;
+        private int money;
+        private List<Product> bag;
+
+        public string Name
+        {
+            get { return name; }
+            private set
+            {
+                if (value == string.Empty)
+                {
+                    throw new ArgumentException("Name cannot be empty");
+                }
+                name = value;
+            }
+        }
+        public int Money
+        {
+            get { return money; }
+            private set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentException("Money cannot be negative");
+                }
+                money = value;
+            }
+        }
+        public Person(string name, int money)
+        {
+            Name = name;
+            Money = money;
+           
+        }
+        public void Add(Product element)
+        {
+            bag.Add(element);
+        }
+        public override string ToString()
+        {
+            return $"{this.Name} - {this.Money}";
+        }
+    }
+}
