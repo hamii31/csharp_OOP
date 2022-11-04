@@ -1,0 +1,152 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace ShoppingSpree
+{
+    public class StartUp
+    {
+        static void Main(string[] args)
+        {
+            var people = new Dictionary<string, int>();
+            var input = Console.ReadLine().Split(";", StringSplitOptions.RemoveEmptyEntries);
+            try
+            {
+
+                foreach (var item in input)
+                {
+                    List<string> person = item.Split("=", StringSplitOptions.RemoveEmptyEntries).ToList();
+                    if (!people.ContainsKey(person[0]))
+                    {
+                        people.Add(person[0], Convert.ToInt32(person[1]));
+
+                    }
+                    person.Clear();
+                }
+                foreach (var item in people)
+                {
+                    var person = new Person(item.Key, item.Value);
+                }
+
+                var productDict = new Dictionary<string, int>();
+                var products = Console.ReadLine().Split(";", StringSplitOptions.RemoveEmptyEntries);
+                foreach (var item in products)
+                {
+                    List<string> product = item.Split("=", StringSplitOptions.RemoveEmptyEntries).ToList();
+                    if (!productDict.ContainsKey(product[0]))
+                    {
+                        productDict.Add(product[0], Convert.ToInt32(product[1]));
+                    }
+                    product.Clear();
+                }
+                foreach (var item in productDict)
+                {
+                    var product = new Product(item.Key, item.Value);
+                }
+
+
+                var bags = new Dictionary<string, List<string>>();
+                while (true)
+                {
+                    input = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries);
+                    if (input[0] == "END")
+                    {
+                        break;
+                    }
+                    if (people.ContainsKey(input[0]) && productDict.ContainsKey(input[1]))
+                    {
+                        if (!bags.ContainsKey(input[0]))
+                        {
+                            bags[input[0]] = new List<string>();
+
+                            foreach (KeyValuePair<string, int> item in people.ToList())
+                            {
+                                
+                                foreach (KeyValuePair<string, int> product in productDict.ToList())
+                                {
+                            
+                                    if (item.Key == input[0] && product.Key == input[1])
+                                    {
+                                        if (item.Value >= product.Value)
+                                        {
+
+                                            if (item.Value < product.Value)
+                                            {
+                                                Console.WriteLine($"{item.Key} can't afford {product.Key}");
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine($"{item.Key} bought {product.Key}");
+                                                bags[input[0]].Add(input[1]);
+                                                people[input[0]] = item.Value - product.Value;
+                                                break;
+                                            }
+                                            
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine($"{item.Key} can't afford {product.Key}");
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            foreach (KeyValuePair<string, int> item in people.ToList())
+                            { 
+                                foreach (KeyValuePair<string, int> product in productDict.ToList())
+                                {
+                                    
+                                    if (item.Key == input[0] && product.Key == input[1])
+                                    {
+                                        if (item.Value >= product.Value)
+                                        {
+
+
+                                            if (item.Value < product.Value)
+                                            {
+                                                Console.WriteLine($"{item.Key} can't afford {product.Key}");
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine($"{item.Key} bought {product.Key}");
+                                                bags[input[0]].Add(input[1]);
+                                                people[input[0]] = item.Value - product.Value;
+                                                break;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine($"{item.Key} can't afford {product.Key}");
+                                        }
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                foreach (var item in bags)
+                {
+                    if (item.Value.Count == 0)
+                    {
+                        Console.WriteLine($"{item.Key} - Nothing bought");
+                    }
+                    else
+                    {
+                        Console.Write($"{item.Key} - ");
+                        Console.Write(string.Join(", ", item.Value));
+                        Console.WriteLine();
+                    }
+                    
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+       
+    }
+}
