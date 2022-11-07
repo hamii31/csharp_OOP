@@ -1,0 +1,43 @@
+
+namespace PersonInfo.r
+{
+    using PersonInfo.r.Interfaces;
+    using System;
+
+    public class Citizen : IPerson
+    {
+        private string name;
+        private int age;
+
+        public Citizen(string name, int age)
+        {
+            Name = name;
+            Age = age;
+        }
+        public string Name
+        {
+            get { return name; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Can't be null or empty.");
+                }
+                name = value;
+            }
+        }
+
+        public int Age
+        {
+            get { return age; }
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentException("Can't be negative.");
+                }
+                age = value;
+            }
+        }
+    }
+}
