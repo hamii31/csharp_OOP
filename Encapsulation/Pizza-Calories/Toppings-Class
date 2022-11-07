@@ -1,0 +1,73 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace PizzaCalories
+{
+    public class Toppings
+    {
+        private double meat = 1.2;
+        private double veggies = 0.8;
+        private double cheese = 1.1;
+        private double sauce = 0.9;
+
+        private int weight;
+        public int Weight
+        {
+            get { return weight; }
+            private set
+            {
+                
+                weight = value;
+            }
+        }
+       
+        public Toppings() {}
+
+        public Toppings(string topping, int grams)
+        {
+            switch (topping)
+            { 
+                case "meat":
+                    t = meat;
+                    break;
+                case "Meat":
+                    t = meat;
+                    break;
+                case "veggies":
+                    t = veggies;
+                    break;
+                case "Veggies":
+                    t = veggies;
+                    break;
+                case "cheese":
+                    t = cheese;
+                    break;
+                case "Cheese":
+                    t = cheese;
+                    break;
+                case "sauce":
+                    t = sauce;
+                    break;
+                case "Sauce":
+                    t = sauce;
+                    break;
+                default:
+                    throw new ArgumentException($"Cannot place {topping} on top of your pizza.");
+            }
+            if (grams > 50 || grams < 1)
+            {
+                throw new ArgumentException($"{topping} weight should be in the range [1..50].");
+            }
+            this.Weight = grams;
+        }
+       
+        public double t = 0.0;
+        public double Calories()
+        {
+            return weight * 2 * t;
+        }
+        
+    }
+}
