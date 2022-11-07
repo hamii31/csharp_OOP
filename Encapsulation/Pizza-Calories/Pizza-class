@@ -39,7 +39,5 @@ namespace PizzaCalories
         {
             Name = name;
         }
-        
-
     }
 }
