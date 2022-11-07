@@ -1,0 +1,71 @@
+using System;
+
+namespace PizzaCalories
+{
+    public class Dough
+    {
+        //flour
+        private double white = 1.5;
+        private double wholegrain = 1.0;
+
+        //technique
+        private double crispy = 0.9;
+        private double chewy = 1.1;
+        private double homemade = 1.0;
+
+        //weight
+        private int weight;
+       
+        public int Weight
+        {
+            get { return weight; }
+            private set
+            {
+                if (value > 200)
+                {
+                    throw new ArgumentException("Dough weight should be in the range[1..200].");
+                }
+                weight = value;
+            }
+        }
+        public Dough() {}
+        public Dough(string flourType, string bakingType, int weight)
+        {
+            flourType = flourType.ToLower();
+            bakingType = bakingType.ToLower();
+            switch (flourType)
+            {
+                case "white":
+                    f = white;
+                    break;
+                case "wholegrain":
+                    f = wholegrain;
+                    break;
+                default:
+                    throw new ArgumentException("Invalid type of dough.");
+            }
+            switch (bakingType)
+            {
+                case "crispy":
+                    t = crispy;
+                    break;
+                case "chewy":
+                    t = chewy;
+                    break;
+                case "homemade":
+                    t = homemade;
+                    break;
+                default:
+                    break;
+            }
+            this.Weight = weight;
+        }
+        public double f = 0.0;
+        public double t = 0.0;
+       
+        public double Calories()
+        {
+            return 2 * weight * f * t;
+        }
+    }
+}
