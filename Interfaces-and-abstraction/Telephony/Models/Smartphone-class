@@ -1,0 +1,38 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Telephony
+{
+    public class Smartphone : IStationaryphone, ISmartphone
+    {
+        public string BrowseURL(string url)
+        {
+            if (this.ValidateURL(url))
+            {
+                throw new URLException();
+            }
+            return $"Browsing: {url}!";
+        }
+
+        public string Call(string number)
+        {
+            if (this.ValidateNumber(number))
+            {
+                throw new PhoneExceptions();
+            }
+            return $"Calling... {number}";
+        }
+        private bool ValidateNumber(string number)
+        {
+            bool containsLetters = number.Any(ch => !char.IsDigit(ch));
+            return containsLetters;
+        }
+        private bool ValidateURL(string url)
+        {
+            bool containsNumbers = url.Any(ch => char.IsDigit(ch));
+            return containsNumbers;
+        }
+    }
+}
