@@ -1,0 +1,68 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Telephony
+{
+    public class Engine : IEngine
+    {
+        private readonly IReader reader;
+        private readonly IWriter writer;
+
+        private readonly IStationaryphone stationaryphone;
+        private readonly ISmartphone smartphone;
+
+        private Engine()
+        {
+            stationaryphone = new Stationaryphone();
+            smartphone = new Smartphone();
+        }
+        public Engine(IReader reader, IWriter writer) : this()
+        {
+            this.reader = reader;
+            this.writer = writer;
+        }
+      
+        public void Run()
+        {
+            try
+            {
+                var numbers = reader.ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                var urls = reader.ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+                foreach (var item in numbers)
+                {
+                    if (item.Length > 7)
+                    {
+                        writer.WriteLine(smartphone.Call(item));
+                    }
+                    else if (item.Length == 7)
+                    {
+                        writer.WriteLine(stationaryphone.Call(item));
+                    }
+                    else
+                    {
+                        throw new PhoneExceptions();
+                    }
+
+                }
+                foreach (var item in urls)
+                {
+                    writer.WriteLine(smartphone.BrowseURL(item));
+                }
+            }
+            catch (PhoneExceptions e)
+            {
+                writer.WriteLine(e.Message);
+            }
+            catch (URLException e)
+            {
+                writer.WriteLine(e.Message);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+    }
+}
