@@ -1,40 +1,19 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Text;
 
 namespace Telephony
 {
-    public class FileReader : IReader
+    public class FileWriter : IWriter
     {
-        private string filepath;
-        private string[] fileAllLines;
-        public FileReader(string filepath)
+        public void Write(string text)
         {
-            FilePath = filepath;
-            fileAllLines = File.ReadAllLines(filepath);
-            RowNum = 0;
+            throw new NotImplementedException();
         }
-        public string FilePath
+
+        public void WriteLine(string text)
         {
-            get { return filepath; }
-            private set
-            {
-                if (!Directory.Exists(value))
-                {
-                    throw new ArgumentException("Directory doesn't exist!");
-                }
-                filepath = value; 
-            } 
-        }
-        public int RowNum { get; private set; }
-        public string ReadLine()
-        {
-            if (RowNum >= fileAllLines.Length)
-            {
-                throw new InvalidOperationException("No more content!");
-            }
-            return fileAllLines[RowNum++];
+            throw new NotImplementedException();
         }
     }
 }
