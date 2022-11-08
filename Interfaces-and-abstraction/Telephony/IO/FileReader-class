@@ -1,0 +1,40 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
+
+namespace Telephony
+{
+    public class FileReader : IReader
+    {
+        private string filepath;
+        private string[] fileAllLines;
+        public FileReader(string filepath)
+        {
+            FilePath = filepath;
+            fileAllLines = File.ReadAllLines(filepath);
+            RowNum = 0;
+        }
+        public string FilePath
+        {
+            get { return filepath; }
+            private set
+            {
+                if (!Directory.Exists(value))
+                {
+                    throw new ArgumentException("Directory doesn't exist!");
+                }
+                filepath = value; 
+            } 
+        }
+        public int RowNum { get; private set; }
+        public string ReadLine()
+        {
+            if (RowNum >= fileAllLines.Length)
+            {
+                throw new InvalidOperationException("No more content!");
+            }
+            return fileAllLines[RowNum++];
+        }
+    }
+}
