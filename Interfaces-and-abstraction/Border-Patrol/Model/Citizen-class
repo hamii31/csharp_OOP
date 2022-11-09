@@ -1,0 +1,60 @@
+using BorderPatrol.Exceptions;
+using BorderPatrol.Model.Interfaces;
+
+namespace BorderPatrol.Model
+{
+    public class Citizen : IName, IAge, IId
+    {
+        private int age;
+        private string name;
+        private string id;
+        public Citizen()
+        {
+
+        }
+        public Citizen(string name, int age, string id)
+        {
+            Name = name;
+            Age = age;
+            Id = id;
+        }
+        public int Age
+        {
+            get { return age; }
+            private set
+            {
+                if (value < 0)
+                {
+                    throw new NumberException();
+                }
+                age = value;
+            }
+        }
+
+        public string Name
+        {
+            get { return name; }
+            private set
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new StringException();
+                }
+                name = value;
+            }
+        }
+
+        public string Id
+        {
+            get { return id; }
+            private set
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new StringException();
+                }
+                id = name;
+            }
+        }
+    }
+}
