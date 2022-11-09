@@ -1,0 +1,83 @@
+using BorderPatrol.Core.Interfaces;
+using BorderPatrol.Exceptions;
+using BorderPatrol.IO.Interfaces;
+using BorderPatrol.Model;
+using System;
+using System.Collections.Generic;
+
+namespace BorderPatrol
+{
+    public class Engine : IEngine
+    {
+        private readonly IReader reader;
+        private readonly IWriter writer;
+
+        private readonly Robot robot;
+        private readonly Citizen citizen;
+
+        private Engine()
+        {
+            citizen = new Citizen();
+            robot = new Robot();
+        }
+        public Engine(IReader reader, IWriter writer) : this()
+        {
+            this.reader = reader;
+            this.writer = writer;
+        }
+
+        public void Run()
+        {
+            try
+            {
+                var person = new Citizen();
+                var robot = new Robot();
+                var Ids = new List<string>();
+                while (true)
+                {
+                    var input = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries);
+                    if (input[0] == "End")
+                    {
+                        break;
+                    }
+                    if (input.Length == 3)
+                    {
+                        person = new Citizen(input[0], Convert.ToInt32(input[1]), input[2]);
+                        Ids.Add(input[2]);
+                    }
+                    else if (input.Length == 2)
+                    {
+                        robot = new Robot(input[0], input[1]);
+                        Ids.Add(input[1]);
+                    }
+                }
+                var code = Console.ReadLine();
+                Check(code, Ids);
+            }
+            catch (StringException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            catch (NumberException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public void Check(string code, List<string> Ids)
+        {
+            foreach (var item in Ids)
+            {
+                string lastDigits = item.Substring(Math.Max(0, item.Length - 5));
+                if (lastDigits.Contains(code))
+                {
+                    Console.WriteLine(item);
+                }
+            }
+        }
+    }
+}
