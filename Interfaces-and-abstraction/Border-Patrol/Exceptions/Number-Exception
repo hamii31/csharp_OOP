@@ -1,0 +1,19 @@
+using System;
+
+
+namespace BorderPatrol.Exceptions
+{
+    public class NumberException : Exception
+    {
+        private const string DefaultMessage = "Can't be a negative number!";
+
+        public NumberException() : base(DefaultMessage)
+        {
+
+        }
+        public NumberException(string message) : base(message)
+        {
+
+        }
+    }
+}
