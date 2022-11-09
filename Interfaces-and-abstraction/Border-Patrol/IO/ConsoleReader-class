@@ -1,0 +1,14 @@
+using BorderPatrol.IO.Interfaces;
+using System;
+
+
+namespace BorderPatrol.IO
+{
+    public class ConsoleReader : IReader
+    {
+        public string ReadLine()
+        {
+            return Console.ReadLine();
+        }
+    }
+}
