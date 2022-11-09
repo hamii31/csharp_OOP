@@ -1,0 +1,9 @@
+
+
+namespace BorderPatrol.Model.Interfaces
+{
+    public interface IName
+    {
+        string Name { get; }
+    }
+}
