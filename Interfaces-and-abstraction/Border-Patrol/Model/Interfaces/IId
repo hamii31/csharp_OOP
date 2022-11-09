@@ -1,0 +1,9 @@
+
+
+namespace BorderPatrol.Model.Interfaces
+{
+    public interface IId
+    {
+        string Id { get; }
+    }
+}
