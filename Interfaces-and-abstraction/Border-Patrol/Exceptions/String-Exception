@@ -1,0 +1,19 @@
+using System;
+
+
+namespace BorderPatrol.Exceptions
+{
+    public class StringException : Exception
+    {
+        private const string DefaultMessage = "Can't be null or empty!";
+
+        public StringException() : base(DefaultMessage)
+        {
+
+        }
+        public StringException(string message) : base(message)
+        {
+
+        }
+    }
+}
