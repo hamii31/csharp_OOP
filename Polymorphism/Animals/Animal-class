@@ -1,0 +1,35 @@
+
+
+namespace Animals
+{
+    public class Animal
+    {
+        private string name;
+        private string favouritefood;
+        public Animal(string name, string food)
+        {
+            Name = name;
+            FavouriteFood = food;
+        }
+        public string Name
+        {
+            get { return name; }
+            private set
+            {
+                name = value;
+            }
+        }
+        public string FavouriteFood
+        {
+            get { return favouritefood; }
+            private set
+            {
+                favouritefood = value;
+            }
+        }
+        public virtual string ExplainSelf()
+        {
+            return $"I am {Name} and my favourite food is {FavouriteFood}";
+        }
+    }
+}
