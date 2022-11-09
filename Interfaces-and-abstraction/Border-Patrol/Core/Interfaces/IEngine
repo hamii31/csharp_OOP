@@ -1,0 +1,12 @@
+
+using System.Collections.Generic;
+
+namespace BorderPatrol.Core.Interfaces
+{
+    public interface IEngine
+    {
+        void Run();
+
+        void Check(string code, List<string> Ids);
+    }
+}
