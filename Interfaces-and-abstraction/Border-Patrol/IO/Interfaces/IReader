@@ -1,0 +1,8 @@
+
+namespace BorderPatrol.IO.Interfaces
+{
+    public interface IReader
+    {
+        string ReadLine();
+    }
+}
