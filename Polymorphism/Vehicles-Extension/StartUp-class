@@ -2,16 +2,16 @@ using System;
 
 namespace Vehicles
 {
-    class StartUp
+    class Program
     {
         static void Main(string[] args)
         {
             var carInput = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries);
             var truckInput = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries);
             var busInput = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries);
-            Automobile car = new Car(double.Parse(carInput[1]), double.Parse(carInput[2]), double.Parse(carInput[3]));
-            Automobile truck = new Truck(double.Parse(truckInput[1]), double.Parse(truckInput[2]), double.Parse(truckInput[3]));
-            Automobile bus = new Bus(double.Parse(busInput[1]), double.Parse(busInput[2]), double.Parse(busInput[3]));
+            Vehicle car = new Car(double.Parse(carInput[1]), double.Parse(carInput[2]), double.Parse(carInput[3]));
+            Vehicle truck = new Truck(double.Parse(truckInput[1]), double.Parse(truckInput[2]), double.Parse(truckInput[3]));
+            Vehicle bus = new Bus(double.Parse(busInput[1]), double.Parse(busInput[2]), double.Parse(busInput[3]));
             var n = int.Parse(Console.ReadLine());
             for (int i = 0; i < n; i++)
             {
