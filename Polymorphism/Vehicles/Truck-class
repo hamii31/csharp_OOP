@@ -1,0 +1,36 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Vehicles
+{
+    public class Truck : Automobile
+    {
+        public Truck(double fuelQ, double litersPerKm) : base(fuelQ, litersPerKm)
+        {
+            LitersPerKm += 1.6;
+        }
+        public override void Drive(double distance)
+        {
+            if (distance * LitersPerKm <= FuelQuantity)
+            {
+                Console.WriteLine($"Truck travelled {distance} km");
+                FuelQuantity -= LitersPerKm * distance;
+            }
+            else
+            {
+                Console.WriteLine("Truck needs refueling");
+            }
+        }
+        public override double Refuel(double liters)
+        {
+            var leakage = 0.95;
+            liters = liters * leakage;
+            return FuelQuantity += liters;
+        }
+        public override string Print()
+        {
+            return $"Truck: {FuelQuantity:f2}";
+        }
+    }
+}
