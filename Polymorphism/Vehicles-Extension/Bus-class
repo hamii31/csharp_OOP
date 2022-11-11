@@ -1,0 +1,44 @@
+using System;
+
+namespace Vehicles
+{
+    public class Bus : Vehicle
+    {
+        public Bus(double fuelQ, double litersPerKm, double tankCapacity) : base(fuelQ, litersPerKm, tankCapacity)
+        {
+
+        }
+        public override void Drive(double distance, bool empty)
+        {
+            if (empty)
+            {
+                if (distance * LitersPerKm <= FuelQuantity)
+                {
+                    Console.WriteLine($"Bus travelled {distance} km");
+                    FuelQuantity -= LitersPerKm * distance;
+                }
+                else
+                {
+                    Console.WriteLine("Bus needs refueling");
+                }
+            }
+            else
+            {
+                LitersPerKm += 1.4;
+                if (distance * LitersPerKm <= FuelQuantity)
+                {
+                    Console.WriteLine($"Bus travelled {distance} km");
+                    FuelQuantity -= LitersPerKm * distance;
+                }
+                else
+                {
+                    Console.WriteLine("Bus needs refueling");
+                }
+            }
+        }
+        public override string Print()
+        {
+            return $"Bus: {FuelQuantity:f2}";
+        }
+    }
+}
