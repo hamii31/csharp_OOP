@@ -1,0 +1,60 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Shapes
+{
+    public class Circle : Shape
+    {
+        private int radius;
+        public Circle (int r)
+        {
+            Radius = r;
+        }
+        public int Radius
+        {
+            get { return radius; }
+            private set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentException("Can't be negative.");
+                }
+                radius = value;
+            }
+        }
+        public override double CalculateArea()
+        {
+            return Math.PI * Math.Pow(Radius, 2);
+        }
+
+        public override double CalculatePerimeter()
+        {
+            return 2 * (Math.PI * Radius);
+        }
+        public override void Draw()
+        {
+            while (Radius <= 0) ;
+
+            Console.WriteLine();
+            double rIn = radius - 0.4, rOut = radius + 0.4;
+
+            for (double y = radius; y >= -radius; --y)
+            {
+                for (double x = -radius; x < rOut; x += 0.5)
+                {
+                    double value = x * x + y * y;
+                    if (value >= rIn * rIn && value <= rOut * rOut)
+                    {
+                        Console.Write("*");
+                    }
+                    else
+                    {
+                        Console.Write(" ");
+                    }
+                }
+                Console.WriteLine();
+            }
+        }
+    }
+}
