@@ -1,0 +1,90 @@
+using System;
+
+namespace Vehicles
+{
+    public class Vehicle
+    {
+        private double fuelQuantity;
+        private double litersPerKm;
+        private double tankCapacity;
+        public Vehicle(double fuelQ, double litersPerKm, double tankCapacity)
+        {
+            TankCapacity = tankCapacity;
+            FuelQuantity = fuelQ;
+            LitersPerKm = litersPerKm;
+            if (TankCapacity < FuelQuantity)
+            {
+                FuelQuantity = 0;
+            }
+        }
+        public double TankCapacity
+        {
+            get { return tankCapacity; }
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentException("Can't be negative");
+                }
+                tankCapacity = value;
+            }
+        }
+        public double FuelQuantity
+        {
+            get { return fuelQuantity; }
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentException("Can't be negative.");
+                }
+                fuelQuantity = value;
+            }
+        }
+        public double LitersPerKm
+        {
+            get { return litersPerKm; }
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentException("Can't be negative.");
+                }
+                litersPerKm = value;
+            }
+        }
+        public virtual void Drive(double distance, bool empty)
+        {
+            if (distance * LitersPerKm <= FuelQuantity)
+            {
+                Console.WriteLine($"Vehicle travelled {distance} km");
+                FuelQuantity -= LitersPerKm * distance;
+                TankCapacity -= LitersPerKm * distance;
+            }
+            else 
+            {
+                Console.WriteLine("Vehicle needs refueling");
+            }
+        }
+        public virtual double Refuel(double liters)
+        {
+            if (liters > TankCapacity)
+            {
+                throw new ArgumentException($"Cannot fit {liters} fuel in the tank");
+            }
+            if (liters <= 0)
+            {
+                throw new ArgumentException("Fuel must be a positive number");
+            }
+            else
+            {
+                return FuelQuantity += liters;
+            }
+            
+        }
+        public virtual string Print()
+        {
+            return $"Vehicle: {FuelQuantity}";
+        }
+    }
+}
