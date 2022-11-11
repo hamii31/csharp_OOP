@@ -1,0 +1,30 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Vehicles
+{
+    public class Car : Automobile
+    {
+        public Car(double fuelQ, double litersPerKm) : base(fuelQ, litersPerKm)
+        {
+            LitersPerKm += 0.9;
+        }
+        public override void Drive(double distance)
+        {
+            if (distance * LitersPerKm <= FuelQuantity)
+            {
+                Console.WriteLine($"Car travelled {distance} km");
+                FuelQuantity -= LitersPerKm * distance;
+            }
+            else
+            {
+                Console.WriteLine("Car needs refueling");
+            }
+        }
+        public override string Print()
+        {
+            return $"Car: {FuelQuantity:f2}";
+        }
+    }
+}
