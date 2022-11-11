@@ -1,0 +1,61 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Vehicles
+{
+    public class Automobile
+    {
+        private double fuelQuantity;
+        private double litersPerKm;
+
+        public Automobile(double fuelQ, double litersPerKm)
+        {
+            FuelQuantity = fuelQ;
+            LitersPerKm = litersPerKm;
+        }
+        public double FuelQuantity
+        {
+            get { return fuelQuantity; }
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentException("Can't be negative.");
+                }
+                fuelQuantity = value;
+            }
+        }
+        public double LitersPerKm
+        {
+            get { return litersPerKm; }
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentException("Can't be negative.");
+                }
+                litersPerKm = value;
+            }
+        }
+        public virtual void Drive(double distance)
+        {
+            if (distance * LitersPerKm <= FuelQuantity)
+            {
+                Console.WriteLine($"Car/Truck travelled {distance} km");
+            }
+            else 
+            {
+                Console.WriteLine("Car/Truck needs refueling");
+            }
+        }
+        public virtual double Refuel(double liters)
+        {
+            return FuelQuantity += liters;
+        }
+        public virtual string Print()
+        {
+            return $"Car/Truck: {FuelQuantity}";
+        }
+    }
+}
