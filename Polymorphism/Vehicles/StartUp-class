@@ -1,0 +1,45 @@
+using System;
+
+namespace Vehicles
+{
+    class StartUp
+    {
+        static void Main(string[] args)
+        {
+            var carInput = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries);
+            var truckInput = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries);
+            Automobile car = new Car(double.Parse(carInput[1]), double.Parse(carInput[2]));
+            Automobile truck = new Truck(double.Parse(truckInput[1]), double.Parse(truckInput[2]));
+            var n = int.Parse(Console.ReadLine());
+            for (int i = 0; i < n; i++)
+            {
+                var input = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries);
+                if (input[1] == "Car")
+                {
+                    if (input[0] == "Drive")
+                    {
+                        car.Drive(double.Parse(input[2]));
+                    }
+                    else
+                    {
+                        car.Refuel(double.Parse(input[2]));
+                    }
+                }
+                else 
+                {
+                    if (input[0] == "Drive")
+                    {
+                        truck.Drive(double.Parse(input[2]));
+                    }
+                    else
+                    {
+                        truck.Refuel(double.Parse(input[2]));
+                    }
+                }
+            }
+           
+            Console.WriteLine(car.Print());
+            Console.WriteLine(truck.Print());
+        }
+    }
+}
