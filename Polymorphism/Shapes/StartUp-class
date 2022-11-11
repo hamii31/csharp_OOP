@@ -1,0 +1,23 @@
+using System;
+
+namespace Shapes
+{
+    public class StartUp
+    {
+        static void Main(string[] args)
+        {
+            var h = int.Parse(Console.ReadLine());
+            var w = int.Parse(Console.ReadLine());
+            Shape rectangle = new Rectangle(h, w);
+            rectangle.Draw();
+            Console.WriteLine("Area: {0}", rectangle.CalculateArea());
+            Console.WriteLine("Perimeter: {0}", rectangle.CalculatePerimeter());
+
+            var r = int.Parse(Console.ReadLine());
+            Shape circle = new Circle(r);
+            circle.Draw();
+            Console.WriteLine("Area: {0}", circle.CalculateArea());
+            Console.WriteLine("Perimeter: {0}", circle.CalculatePerimeter());
+        }
+    }
+}
