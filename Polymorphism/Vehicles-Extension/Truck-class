@@ -1,0 +1,46 @@
+using System;
+
+
+namespace Vehicles
+{
+    public class Truck : Vehicle
+    {
+        public Truck(double fuelQ, double litersPerKm, double tankCapacity) : base(fuelQ, litersPerKm, tankCapacity)
+        {
+            LitersPerKm += 1.6;
+        }
+        public override void Drive(double distance, bool empty)
+        {
+            if (distance * LitersPerKm <= FuelQuantity)
+            {
+                Console.WriteLine($"Truck travelled {distance} km");
+                FuelQuantity -= LitersPerKm * distance;
+            }
+            else
+            {
+                Console.WriteLine("Truck needs refueling");
+            }
+        }
+        public override double Refuel(double liters)
+        {
+            if (liters > TankCapacity)
+            {
+                throw new ArgumentException($"Cannot fit {liters} fuel in the tank");
+            }
+            if (liters <= 0)
+            {
+                throw new ArgumentException("Fuel must be a positive number");
+            }
+            else
+            {
+                var leakage = 0.95;
+                liters = liters * leakage;
+                return FuelQuantity += liters;
+            }
+        }
+        public override string Print()
+        {
+            return $"Truck: {FuelQuantity:f2}";
+        }
+    }
+}
