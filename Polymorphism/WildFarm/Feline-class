@@ -1,0 +1,20 @@
+namespace WildFarm
+{
+    public abstract class Feline : Mammal 
+    {
+        private string breed;
+        public string Breed { get { return breed; } set { breed = value; } }
+
+        public Feline()
+        {
+
+        }
+        public Feline(string name, double weight, string region, string breed) : base(name, weight, region)
+        {
+            Name = name;
+            Weight = weight;
+            LivingRegion = region;
+            Breed = breed;
+        }
+    }
+}
