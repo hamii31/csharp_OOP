@@ -1,0 +1,46 @@
+
+
+namespace WildFarm
+{
+    public class Hen : Bird
+    {
+        public Hen()
+        {
+
+        }
+        public Hen(string name, double weight, double wingsize) : base(name, weight, wingsize)
+        {
+
+        }
+        public override void Feed(string food, int quantity)
+        {
+            switch (food)
+            {
+                case "Vegetable":
+                    Food veggie = new Vegetable(quantity);
+                    break;
+                case "Meat":
+                    Food meat = new Meat(quantity);
+                    break;
+                case "Fruit":
+                    Food fruit = new Fruit(quantity);
+                    break;
+                case "Seeds":
+                    Food seeds = new Seeds(quantity);
+                    break;
+                default:
+                    break;
+            }
+            FoodEaten += quantity;
+            Weight += quantity * 0.35;
+        }
+        public override string ToString()
+        {
+            return "Cluck";
+        }
+        public override string Print()
+        {
+            return $"{GetType().Name} [{Name}, {Wingsize}, {Weight}, {FoodEaten}]";
+        }
+    }
+}
