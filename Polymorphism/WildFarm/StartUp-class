@@ -1,0 +1,95 @@
+using System;
+using System.Collections.Generic;
+
+namespace WildFarm
+{
+    class StartUp
+    {
+        static void Main(string[] args)
+        {
+            Animal hen = new Hen();
+            Animal owl = new Owl();
+            Animal dog = new Dog();
+            Animal mouse = new Mouse();
+            Animal cat = new Cat();
+            Animal tiger = new Tiger();
+            var animals = new Queue<string>();
+            while (true)
+            {
+                var animal = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries);
+                if (animal[0] == "End")
+                {
+                    break;
+                }
+                var food = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries);
+                switch (animal[0])
+                {
+                    case "Cat":
+                        cat = new Cat(animal[1], double.Parse(animal[2]), animal[3], animal[4]);
+                        Console.WriteLine(cat);
+                        cat.Feed(food[0], int.Parse(food[1]));
+                        animals.Enqueue(animal[0]);
+                        break;
+                    case "Tiger":
+                        tiger = new Tiger(animal[1], double.Parse(animal[2]), animal[3], animal[4]);
+                        Console.WriteLine(tiger);
+                        tiger.Feed(food[0], int.Parse(food[1]));
+                        animals.Enqueue(animal[0]);
+                        break;
+                    case "Hen":
+                        hen = new Hen(animal[1], double.Parse(animal[2]), double.Parse(animal[3]));
+                        Console.WriteLine(hen);
+                        hen.Feed(food[0], int.Parse(food[1]));
+                        animals.Enqueue(animal[0]);
+                        break;
+                    case "Owl":
+                        owl = new Owl(animal[1], double.Parse(animal[2]), double.Parse(animal[3]));
+                        Console.WriteLine(owl);
+                        owl.Feed(food[0], int.Parse(food[1]));
+                        animals.Enqueue(animal[0]);
+                        break;
+                    case "Mouse":
+                        mouse = new Mouse(animal[1], double.Parse(animal[2]), animal[3]);
+                        Console.WriteLine(mouse);
+                        mouse.Feed(food[0], int.Parse(food[1]));
+                        animals.Enqueue(animal[0]);
+                        break;
+                    case "Dog":
+                        dog = new Dog(animal[1], double.Parse(animal[2]), animal[3]);
+                        Console.WriteLine(dog);
+                        dog.Feed(food[0], int.Parse(food[1]));
+                        animals.Enqueue(animal[0]);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            foreach (var item in animals)
+            {
+                switch (item)
+                {
+                    case "Cat":
+                        Console.WriteLine(cat.Print());
+                        break;
+                    case "Tiger":
+                        Console.WriteLine(tiger.Print());
+                        break;
+                    case "Hen":
+                        Console.WriteLine(hen.Print());
+                        break;
+                    case "Owl":
+                        Console.WriteLine(owl.Print());
+                        break;
+                    case "Mouse":
+                        Console.WriteLine(mouse.Print());
+                        break;
+                    case "Dog":
+                        Console.WriteLine(dog.Print());
+                        break;
+                    default:
+                        break;
+                }
+            }        
+        }
+    }
+}
