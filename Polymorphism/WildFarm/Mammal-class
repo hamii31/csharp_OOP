@@ -1,0 +1,21 @@
+
+
+namespace WildFarm
+{
+    public abstract class Mammal : Animal
+    {
+        private string livingRegion;
+        public string LivingRegion { get { return livingRegion; } set { livingRegion = value; } }
+
+        public Mammal()
+        {
+
+        }
+        public Mammal(string name, double weight, string region)
+        {
+            Name = name;
+            Weight = weight;
+            LivingRegion = region;
+        }
+    }
+}
