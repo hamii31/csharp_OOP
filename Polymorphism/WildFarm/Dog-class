@@ -1,0 +1,52 @@
+
+
+namespace WildFarm
+{
+    public class Dog : Mammal
+    {
+        public Dog()
+        {
+
+        }
+        public Dog(string name, double weight, string region) : base(name, weight, region)
+        {
+        }
+        public override void Feed(string food, int quantity)
+        {
+            switch (food)
+            {
+                case "Vegetable":
+                    Food veggie = new Vegetable(quantity);
+                    break;
+                case "Meat":
+                    Food meat = new Meat(quantity);
+                    break;
+                case "Fruit":
+                    Food fruit = new Fruit(quantity);
+                    break;
+                case "Seeds":
+                    Food seeds = new Seeds(quantity);
+                    break;
+                default:
+                    break;
+            }
+            if (food != "Meat")
+            {
+                System.Console.WriteLine($"{GetType().Name} does not eat {food}!");
+            }
+            else
+            {
+                FoodEaten += quantity;
+                Weight += quantity * 0.40;
+            }
+        }
+        public override string ToString()
+        {
+            return "Woof!";
+        }
+        public override string Print()
+        {
+            return $"{GetType().Name} [{Name}, {Weight}, {LivingRegion}, {FoodEaten}]";
+        }
+    }
+}
