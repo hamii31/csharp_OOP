@@ -1,0 +1,23 @@
+
+
+namespace WildFarm
+{
+    public abstract class Bird : Animal
+    {
+        private double wingsize;
+        public double Wingsize { get { return wingsize; } set { wingsize = value; } }
+
+        public Bird()
+        {
+
+        }
+       
+        public Bird(string name, double weight, double wingsize)
+        {
+            Name = name;
+            Weight = weight;
+            Wingsize = wingsize;
+        }
+        
+    }
+}
