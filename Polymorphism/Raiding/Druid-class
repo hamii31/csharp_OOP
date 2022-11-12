@@ -1,0 +1,15 @@
+
+namespace Raiding
+{
+    public class Druid : BaseHero
+    {
+        public Druid(string name) : base(name)
+        {
+        }
+        public override string CastAbility()
+        {
+            Power = 80;
+            return $"{GetType().Name} - {Name} healed for {Power}";
+        }
+    }
+}
