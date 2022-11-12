@@ -1,0 +1,52 @@
+
+namespace WildFarm
+{
+    public class Mouse : Mammal
+    {
+        public Mouse()
+        {
+
+        }
+        public Mouse(string name, double weight, string region) : base(name, weight, region)
+        {
+
+        }
+        public override void Feed(string food, int quantity)
+        {
+            switch (food)
+            {
+                case "Vegetable":
+                    Food veggie = new Vegetable(quantity);
+                    break;
+                case "Meat":
+                    Food meat = new Meat(quantity);
+                    break;
+                case "Fruit":
+                    Food fruit = new Fruit(quantity);
+                    break;
+                case "Seeds":
+                    Food seeds = new Seeds(quantity);
+                    break;
+                default:
+                    break;
+            }
+            if (food == "Vegetable" || food == "Fruit")
+            {
+                FoodEaten += quantity;
+                Weight += quantity * 0.10;
+            }
+            else
+            {
+                System.Console.WriteLine($"{GetType().Name} does not eat {food}!");
+            }
+        }
+        public override string ToString()
+        {
+            return "Squeak";
+        }
+        public override string Print()
+        {
+            return $"{GetType().Name} [{Name}, {Weight}, {LivingRegion}, {FoodEaten}]";
+        }
+    }
+}
