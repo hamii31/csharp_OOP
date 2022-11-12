@@ -1,0 +1,16 @@
+
+
+namespace Raiding
+{
+    public class Warrior : BaseHero
+    {
+        public Warrior(string name) : base(name)
+        {
+        }
+        public override string CastAbility()
+        {
+            Power = 100;
+            return $"{GetType().Name} - {Name} hit for {Power} damage";
+        }
+    }
+}
