@@ -1,0 +1,53 @@
+
+
+namespace WildFarm
+{
+    public class Tiger : Feline
+    {
+        public Tiger()
+        {
+
+        }
+        public Tiger(string name, double weight, string region, string breed) : base(name, weight, region, breed)
+        {
+
+        }
+        public override void Feed(string food, int quantity)
+        {
+            switch (food)
+            {
+                case "Vegetable":
+                    Food veggie = new Vegetable(quantity);
+                    break;
+                case "Meat":
+                    Food meat = new Meat(quantity);
+                    break;
+                case "Fruit":
+                    Food fruit = new Fruit(quantity);
+                    break;
+                case "Seeds":
+                    Food seeds = new Seeds(quantity);
+                    break;
+                default:
+                    break;
+            }
+            if (food != "Meat")
+            {
+                System.Console.WriteLine($"{GetType().Name} does not eat {food}!");
+            }
+            else
+            {
+                FoodEaten += quantity;
+                Weight += quantity * 1.00;
+            }
+        }
+        public override string ToString()
+        {
+            return "ROAR!!!";
+        }
+        public override string Print()
+        {
+            return $"{GetType().Name} [{Name}, {Breed}, {Weight}, {LivingRegion}, {FoodEaten}]";
+        }
+    }
+}
