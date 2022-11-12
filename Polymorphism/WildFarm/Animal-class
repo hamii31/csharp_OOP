@@ -1,0 +1,49 @@
+
+
+namespace WildFarm
+{
+    public abstract class Animal
+    {
+        private string name;
+        public string Name { get { return name; } set { name = value; } }
+        private double weight;
+        public double Weight { get { return weight; } set { weight = value; } }
+
+        private int foodEaten;
+        public int FoodEaten { get { return foodEaten; } set { foodEaten = value; } }
+
+        public virtual void Feed(string food, int quantity)
+        {
+            switch (food)
+            {
+                case "Vegetable":
+                    Food veggie = new Vegetable(quantity);
+                    break;
+                case "Meat":
+                    Food meat = new Meat(quantity);
+                    break;
+                case "Fruit":
+                    Food fruit = new Fruit(quantity);
+                    break;
+                case "Seeds":
+                    Food seeds = new Seeds(quantity);
+                    break;
+                default:
+                    break;
+            }
+            FoodEaten = quantity;
+        }
+        public Animal()
+        {
+
+        }
+        public override string ToString()
+        {
+            return base.ToString();
+        }
+        public virtual string Print()
+        {
+            return "";
+        }
+    }
+}
