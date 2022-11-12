@@ -1,0 +1,52 @@
+
+namespace WildFarm
+{
+    public class Cat : Feline
+    {
+        public Cat()
+        {
+
+        }
+        public Cat(string name, double weight, string region, string breed) : base(name, weight, region, breed)
+        {
+
+        }
+        public override void Feed(string food, int quantity)
+        {
+            switch (food)
+            {
+                case "Vegetable":
+                    Food veggie = new Vegetable(quantity);
+                    break;
+                case "Meat":
+                    Food meat = new Meat(quantity);
+                    break;
+                case "Fruit":
+                    Food fruit = new Fruit(quantity);
+                    break;
+                case "Seeds":
+                    Food seeds = new Seeds(quantity);
+                    break;
+                default:
+                    break;
+            }
+            if (food == "Vegetable" || food == "Meat")
+            {
+                FoodEaten += quantity;
+                Weight += quantity * 0.30;
+            }
+            else
+            {
+                System.Console.WriteLine($"{GetType().Name} does not eat {food}!");
+            }
+        }
+        public override string ToString()
+        {
+            return "Meow";
+        }
+        public override string Print()
+        {
+            return $"{GetType().Name} [{Name}, {Breed}, {Weight}, {LivingRegion}, {FoodEaten}]";
+        }
+    }
+}
