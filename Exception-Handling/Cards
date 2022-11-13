@@ -1,0 +1,82 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Cards
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.OutputEncoding = Encoding.UTF8;
+            var cardFaces = new List<string>
+            {
+                "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"
+            };
+            var cardSuits = new List<string>
+            {
+                "S", "H", "D", "C"
+            };
+            var input = Console.ReadLine().Split(", ", StringSplitOptions.RemoveEmptyEntries);
+            var duos = new List<string>();
+            var cards = new Dictionary<string, string>();
+            foreach (var item in input)
+            {
+                duos.Add(item);
+            }
+            for (int i = 0; i < duos.Count; i++)
+            {
+                try
+                {
+                    var splitted = duos[i].Split(" ", StringSplitOptions.RemoveEmptyEntries);
+                    if (!cardFaces.Contains(splitted[0]) || !cardSuits.Contains(splitted[1]))
+                    {
+                        throw new ArgumentException("Invalid card!");
+                    }
+                    else
+                    {
+                        cards.Add(splitted[0], splitted[1]);
+                    }
+                }
+                catch (ArgumentException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
+            ToString(cards);
+           
+        }
+        public static void ToString(Dictionary<string, string> cards)
+        {
+            foreach (var item in cards)
+            {
+                switch (item.Value)
+                {
+                    case "S":
+                        byte[] bytes1 = Encoding.Default.GetBytes("\u2660");
+                        string suit1 = Encoding.UTF8.GetString(bytes1);
+                        Console.Write($"[{item.Key}{suit1}] ");
+                        break;
+                    case "H":
+                        byte[] bytes2 = Encoding.Default.GetBytes("\u2665");
+                        string suit2 = Encoding.UTF8.GetString(bytes2);
+                        Console.Write($"[{item.Key}{suit2}] ");
+                        break;
+                    case "D":
+                        byte[] bytes3 = Encoding.Default.GetBytes("\u2666");
+                        string suit3 = Encoding.UTF8.GetString(bytes3);
+                        Console.Write($"[{item.Key}{suit3}] ");
+                        break;
+                    case "C":
+                        byte[] bytes4 = Encoding.Default.GetBytes("\u2663");
+                        string suit4 = Encoding.UTF8.GetString(bytes4);
+                        Console.Write($"[{item.Key}{suit4}] ");
+                        break;
+                    default:
+                        break;
+                }
+            }
+           
+        }
+    }
+}
