@@ -1,0 +1,37 @@
+
+using System;
+
+namespace SquareRoot
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                var number = int.Parse(Console.ReadLine());
+                Console.WriteLine(SquareRoot(number));
+            }
+            catch (ArgumentException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+                Console.WriteLine("Goodbye.");
+            }
+        }
+        public static double SquareRoot(int number)
+        {
+            if (number < 0)
+            {
+                throw new ArgumentException("Invalid number.");
+            }
+            else
+            {
+                return Math.Sqrt(number);
+            }
+            
+        }
+    }
+}
