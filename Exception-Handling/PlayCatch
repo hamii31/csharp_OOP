@@ -1,0 +1,90 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace PlayCatch
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var array = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).
+                ToArray();
+            var exceptionCount = 0;
+            while (exceptionCount < 3)
+            {
+                try
+                {
+                    var input = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries);
+                    switch (input[0])
+                    {
+                        case "Replace":
+                            if (Convert.ToInt32(input[1]) > array.Length)
+                            {
+                                
+                                throw new ArgumentException();
+                            }
+                            else if (!int.TryParse(input[1], out int _) || (!int.TryParse(input[2], out int _)))
+                            {
+                                
+                                throw new FormatException();
+                            }
+                            else
+                            {
+                                array.SetValue(Convert.ToInt32(input[2]), Convert.ToInt32(input[1]));
+                            }
+                            break;
+                        case "Show":
+                            if (Convert.ToInt32(input[1]) > array.Length)
+                            {
+                               
+                                throw new ArgumentException();
+                            }
+                            else if (!int.TryParse(input[1], out int _))
+                            {
+                                throw new FormatException();
+                            }
+                            else
+                            {
+                                Console.WriteLine(array[Convert.ToInt32(input[1])]);
+                            }
+                            break;
+                        case "Print":
+                            if (Convert.ToInt32(input[1]) > array.Length || Convert.ToInt32(input[2]) >= array.Length)
+                            {
+                                throw new ArgumentException();
+                            }
+                            else if (!int.TryParse(input[1], out int _) || (!int.TryParse(input[2], out int _)))
+                            {
+                                throw new FormatException();
+                            }
+                            else
+                            {
+                                var list = new List<int>();
+                                for (int i = Convert.ToInt32(input[1]); i <= Convert.ToInt32(input[2]); i++)
+                                {
+                                    list.Add(array[i]);
+                                }
+                                Console.WriteLine(string.Join(", ", list));
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                    
+                }
+                catch (ArgumentException)
+                {
+                    exceptionCount++;
+                    Console.WriteLine("The index does not exist!");
+                }
+                catch (FormatException)
+                {
+                    exceptionCount++;
+                    Console.WriteLine("The variable is not in the correct format!");
+                }
+            }
+            Console.WriteLine(string.Join(", ", array));
+        }
+    }
+}
