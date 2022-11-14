@@ -1,0 +1,48 @@
+using System;
+using System.Linq;
+
+namespace SumOfIntegers
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var input = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries);
+            var sum = 0;
+            foreach (var item in input)
+            {
+                try
+                {
+                    if (!int.TryParse(item, out int n))
+                    {
+                        
+                        if (Convert.ToInt32(item) > 2147483647)
+                        {
+                            throw new OverflowException();
+                        }
+                        else
+                        {
+                            throw new FormatException();
+                        }
+                    }
+                    else
+                    {
+                        sum += Convert.ToInt32(item);
+                    }
+                    Console.WriteLine($"Element '{item}' processed - current sum: {sum}");
+                }
+                catch (OverflowException)
+                {
+                    Console.WriteLine($"The element '{item}' is out of range!");
+                    Console.WriteLine($"Element '{item}' processed - current sum: {sum}");
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine($"The element '{item}' is in wrong format!");
+                    Console.WriteLine($"Element '{item}' processed - current sum: {sum}");
+                }
+            }
+            Console.WriteLine($"The total sum of all integers is: {sum}");
+        }
+    }
+}
