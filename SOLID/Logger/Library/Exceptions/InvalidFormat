@@ -1,0 +1,11 @@
+
+
+namespace Logger.Core.Exceptions
+{
+    public class InvalidFormat : Exception
+    {
+        private const string DefaultMessage = "Invalid format!";
+        public InvalidFormat() : base(DefaultMessage) { }
+        public InvalidFormat(string message) : base(message) { }
+    }
+}
