@@ -1,0 +1,38 @@
+using Logger.Core.Appenders.Interfaces;
+using Logger.Core.ENums;
+using Logger.Core.Formatting;
+using Logger.Core.Formatting.Interfaces;
+using Logger.Core.Formatting.Layouts.Interfaces;
+using Logger.Core.IO.Interfaces;
+using Logger.Core.Models.Interfaces;
+
+
+namespace Logger.Core.Appenders
+{
+    public class FileAppender : IAppender
+    {
+        private readonly IFormatter formatter;
+        private FileAppender()
+        {
+            formatter = new MessageFormater();
+        }
+        public FileAppender(ILayout layout, ILogFile file, ReportLevel reportlevel = 0) : this()
+        {
+            Layout = layout;
+            this.ReportLevel = reportlevel;
+            LogFile = file;
+        }
+        public ILayout Layout { get; private set; }
+
+        public ILogFile LogFile { get; private set; }
+
+        public ReportLevel ReportLevel { get; private set; }    
+
+        public void AppendMessage(IMessage message)
+        {
+            string output = formatter.Format(message, this.Layout);
+            this.LogFile.WriteLine(output);
+            File.AppendAllText(LogFile.Path + "/" + this.LogFile.Name, output + Environment.NewLine);
+        }
+    }
+}
