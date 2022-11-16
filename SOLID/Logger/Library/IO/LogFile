@@ -1,0 +1,84 @@
+using Logger.Core.Exceptions;
+using Logger.Core.Formatting.Layouts.Interfaces;
+using Logger.Core.IO.Interfaces;
+using Logger.Core.Models;
+using Logger.Core.Utilities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Logger.Core.IO
+{
+    public class LogFile : ILogFile
+    {
+        private string name;
+        private string path;
+        private readonly StringBuilder content;
+
+        private LogFile()
+        {
+            this.content = new StringBuilder();
+        }
+        public LogFile(string name, string path) : this()
+        {
+            Name = name;
+            Path = path;
+        }
+        public string Name
+        {
+            get { return name!; }
+            private set
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new StringException();
+                }
+                name = value;
+            } 
+        }
+
+        public string Path
+        {
+            get { return path!; }
+            private set
+            {
+                if (!FileValidator.PathExists(value))
+                {
+                    throw new NonExistingPath();
+                }
+                path = System.IO.Path.GetFullPath(value);
+            }
+        }
+        public string FullPath => System.IO.Path.GetFullPath(Path + "/" + Name);
+        public string Content => content.ToString();
+
+        public int Size => content.Length;
+
+        public void Write(string text)
+        {
+            content.Append(text);
+        }
+        public void WriteLine(string text)
+        {
+            content.AppendLine(text);
+        }
+        public void SaveContent()
+        {
+            string previousContent = File.ReadAllText(Path);
+            string newContent = previousContent + Environment.NewLine + Content;
+            File.WriteAllText(Path, newContent);
+            content.Clear();
+        }
+
+        public void AppendText(string content)
+        {
+           using(StreamWriter sw = File.AppendText(path))
+            {
+                sw.WriteLine(content);
+            }
+        }
+    }
+}
