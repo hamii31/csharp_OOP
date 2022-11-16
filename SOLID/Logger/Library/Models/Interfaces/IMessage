@@ -1,0 +1,12 @@
+using Logger.Core.ENums;
+
+namespace Logger.Core.Models.Interfaces
+{
+    public interface IMessage
+    {
+        string MessageText { get; }
+        string DateTime { get; }
+
+        ReportLevel ReportLevel { get; }
+    }
+}
