@@ -8,6 +8,7 @@ using Logger.Core.IO;
 using Logger.Core.IO.Interfaces;
 using Logger.Core.Logging.Interfaces;
 using Logger.Core.Logging;
+using Logger.ConsoleApp.Exceptions;
 
 namespace Logger.ConsoleApp.Core
 {
@@ -49,7 +50,7 @@ namespace Logger.ConsoleApp.Core
                         bool isReportLevelValid = Enum.TryParse<ReportLevel>(appenderArgs[2], true, out reportLevel);
                         if (!isReportLevelValid)
                         {
-                            throw new InvalidOperationException("Report level is not valid");
+                            throw new InvalidLevelException();
                         }
                     }
                     IAppender appender;
