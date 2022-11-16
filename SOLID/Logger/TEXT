@@ -1,0 +1,3 @@
+Application that shows messages at specific date/time, with different urgency levels and the message itself within;
+The message layouts can be customized through CustomLayouts;
+The messages can be both printed on the console or in a new log folder in Logs;
