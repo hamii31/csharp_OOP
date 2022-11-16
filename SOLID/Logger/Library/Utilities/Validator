@@ -1,0 +1,14 @@
+
+
+namespace Logger.Core.Utilities
+{
+    public static class Validator
+    {
+        
+        public static bool IsValid(string value)
+        {
+            return DateTime.TryParse(value, out DateTime dateTimeResult);
+        }
+        
+    }
+}
