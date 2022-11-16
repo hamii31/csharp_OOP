@@ -1,0 +1,15 @@
+using Logger.Core.ENums;
+using Logger.Core.Formatting.Layouts.Interfaces;
+using Logger.Core.Models.Interfaces;
+
+namespace Logger.Core.Appenders.Interfaces
+{
+    public interface IAppender
+    {
+        ILayout Layout { get; }
+
+        ReportLevel ReportLevel { get; }
+
+        void AppendMessage(IMessage message);
+    }
+}
