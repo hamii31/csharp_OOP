@@ -1,0 +1,55 @@
+using Logger.Core.Appenders.Interfaces;
+using Logger.Core.ENums;
+using Logger.Core.Logging.Interfaces;
+using Logger.Core.Models;
+using Logger.Core.Models.Interfaces;
+
+
+namespace Logger.Core.Logging
+{
+    public class LoggerClass : ILogger
+    {
+        private readonly ICollection<IAppender> appenders;
+        public LoggerClass(params IAppender[] appenders)
+        {
+            this.appenders = appenders;
+        }
+        public LoggerClass(ICollection<IAppender> appenders)
+        {
+            this.appenders = appenders;
+        }
+
+        public void Info(string dateTime, string message)
+        {
+            Append(dateTime, message, ReportLevel.Info);
+        }
+        public void Warn(string dateTime, string message)
+        {
+            Append(dateTime, message, ReportLevel.Warning);
+        }
+        public void Error(string dateTime, string message)
+        {
+            Append(dateTime, message, ReportLevel.Error);
+        }
+        public void Critical(string dateTime, string message)
+        {
+            Append(dateTime, message, ReportLevel.Critical);
+        }
+        public void Fatal(string dateTime, string message)
+        {
+            Append(dateTime, message, ReportLevel.Fatal);
+        }
+        private void Append(string dateTime, string message, ReportLevel reportlevel)
+        {
+            IMessage messageText = new Message(message, dateTime, reportlevel);
+            foreach (IAppender appender in this.appenders)
+            {
+                if (messageText.ReportLevel >= appender.ReportLevel)
+                {
+                    appender.AppendMessage(messageText);
+                }
+               
+            }
+        }
+    }
+}
