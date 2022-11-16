@@ -1,0 +1,12 @@
+
+
+namespace Logger.ConsoleApp.Exceptions
+{
+    internal class InvalidLevelException : Exception
+    {
+        private const string DefaultMessage = "Report level is not valid";
+
+        public InvalidLevelException() : base (DefaultMessage) { }
+        public InvalidLevelException(string message) : base (message) { }
+    }
+}
