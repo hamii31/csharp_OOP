@@ -1,0 +1,12 @@
+
+
+namespace Logger.ConsoleApp.Exceptions
+{
+    internal class InvalidAppenderType : Exception
+    {
+        private const string DefaultMessage = "Invalid appender type";
+
+        public InvalidAppenderType() : base(DefaultMessage) { }
+        public InvalidAppenderType(string message) : base(message) { }
+    }
+}
