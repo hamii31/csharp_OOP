@@ -1,0 +1,15 @@
+using Logger.ConsoleApp.Core;
+using Logger.ConsoleApp.Core.Interfaces;
+
+
+namespace Logger.ConsoleApp
+{
+    internal class StartUp
+    {
+        static void Main(string[] args)
+        {
+            IEngine engine = new Engine();
+            engine.Run();
+        }
+    }
+}
