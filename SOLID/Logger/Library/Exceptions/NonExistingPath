@@ -1,0 +1,12 @@
+
+
+namespace Logger.Core.Exceptions
+{
+    public class NonExistingPath : Exception
+    {
+        private const string DefaultMessage = "Path doesn't exist";
+
+        public NonExistingPath() : base(DefaultMessage) { }
+        public NonExistingPath(string message) : base(message) { }
+    }
+}
