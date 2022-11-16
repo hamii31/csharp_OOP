@@ -1,0 +1,12 @@
+
+
+namespace Logger.ConsoleApp.Exceptions
+{
+    internal class InvalidLayoutType : Exception
+    {
+        private const string DefaultMessage = "Invalid layout type";
+
+        public InvalidLayoutType() : base(DefaultMessage) { }
+        public InvalidLayoutType(string message) : base(message) { }
+    }
+}
