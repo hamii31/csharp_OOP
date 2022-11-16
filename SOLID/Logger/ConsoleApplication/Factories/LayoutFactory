@@ -1,0 +1,30 @@
+using Logger.ConsoleApp.CustomLayouts;
+using Logger.ConsoleApp.Exceptions;
+using Logger.ConsoleApp.Factories.Interfaces;
+using Logger.Core.Formatting.Layouts;
+using Logger.Core.Formatting.Layouts.Interfaces;
+
+
+namespace Logger.ConsoleApp.Factories
+{
+    public class LayoutFactory : ILayoutFactory
+    {
+        public ILayout CreateLayout(string type)
+        {
+            ILayout layout;
+            if (type == "SimpleLayout")
+            {
+                layout = new SimpleLayout();
+            }
+            else if (type == "XmlLayout")
+            {
+                layout = new XmlLayouts();
+            }
+            else
+            {
+                throw new InvalidLayoutType();
+            }
+            return layout;
+        }
+    }
+}
