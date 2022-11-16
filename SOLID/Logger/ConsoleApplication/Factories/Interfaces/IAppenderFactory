@@ -1,0 +1,12 @@
+using Logger.Core.Appenders.Interfaces;
+using Logger.Core.ENums;
+using Logger.Core.Formatting.Layouts.Interfaces;
+using Logger.Core.IO.Interfaces;
+
+namespace Logger.ConsoleApp.Factories.Interfaces
+{
+    public interface IAppenderFactory
+    {
+        IAppender CreateAppender(string type, ILayout layout, ReportLevel reportlevel = 0, ILogFile logfile = null );
+    }
+}
