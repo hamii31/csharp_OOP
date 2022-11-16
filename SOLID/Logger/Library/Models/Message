@@ -1,0 +1,50 @@
+using Logger.Core.ENums;
+using Logger.Core.Exceptions;
+using Logger.Core.Models.Interfaces;
+using Logger.Core.Utilities;
+
+namespace Logger.Core.Models
+{
+    internal class Message : IMessage
+    {
+        private string? messageText;
+        private string? dateTime;
+        public Message(string messageTxt, string dateTime, ReportLevel reportLevel)
+        {
+            MessageText = messageTxt;
+            DateTime = dateTime;    
+            ReportLevel = reportLevel; 
+        }
+        public string MessageText
+        {
+            get { return messageText!; }
+            private set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new StringException();
+                } 
+                messageText = value;
+            } 
+        }
+
+        public string DateTime
+        {
+            get { return dateTime!; }
+            private set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new StringException();
+                }
+                dateTime = value;
+                if (!Validator.IsValid(value))
+                {
+                    throw new InvalidFormat();
+                }
+            } 
+        }
+
+        public ReportLevel ReportLevel { get; private set; } 
+    }
+}
