@@ -1,0 +1,9 @@
+using Logger.Core.Formatting.Layouts.Interfaces;
+
+namespace Logger.ConsoleApp.Factories.Interfaces
+{
+    public interface ILayoutFactory
+    {
+        ILayout CreateLayout(string type);
+    }
+}
