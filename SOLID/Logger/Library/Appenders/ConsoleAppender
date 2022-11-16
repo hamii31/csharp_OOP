@@ -1,0 +1,33 @@
+using Logger.Core.Appenders.Interfaces;
+using Logger.Core.Formatting.Interfaces;
+using Logger.Core.Formatting;
+using Logger.Core.Formatting.Layouts.Interfaces;
+using Logger.Core.Models.Interfaces;
+using Logger.Core.ENums;
+
+namespace Logger.Core.Appenders
+{
+    public class ConsoleAppender : IAppender
+    {
+        private readonly IFormatter formatter;
+
+        private ConsoleAppender()
+        {
+            formatter = new MessageFormater();
+        }
+        public ConsoleAppender(ILayout layout, ReportLevel reportlevel = 0) : this()
+        {
+            Layout = layout;
+            this.ReportLevel = reportlevel;
+        }
+        public ILayout Layout { get; private set; }
+
+        public ReportLevel ReportLevel {get; private set; } 
+
+        public void AppendMessage(IMessage message)
+        {
+            string output = formatter.Format(message, Layout);
+            Console.WriteLine(output);
+        }
+    }
+}
