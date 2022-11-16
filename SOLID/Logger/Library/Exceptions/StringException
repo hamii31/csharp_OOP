@@ -1,0 +1,12 @@
+
+
+namespace Logger.Core.Exceptions
+{
+    public class StringException : Exception
+    {
+        private const string DeffaultMessage = "Can't be null or whitespace";
+
+        public StringException() : base(DeffaultMessage) { }  
+        public StringException(string message) : base(message) { }
+    }
+}
