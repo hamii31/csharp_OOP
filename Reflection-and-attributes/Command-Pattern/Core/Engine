@@ -1,0 +1,25 @@
+using System;
+using CommandPattern.Core.Interface;
+using CommandPattern.Models;
+using CommandPattern.Models.Interface;
+
+namespace CommandPattern.Core
+{
+    public class Engine : IEngine
+    {
+        private readonly ICommandInterpreter commandInterpreter;
+        public Engine(ICommandInterpreter commandInterpreter)
+        {
+            this.commandInterpreter = commandInterpreter;
+        }
+        public void Run()
+        {
+            while (true)
+            {
+                var input = Console.ReadLine();
+                Type type = typeof(CommandInterpreter);
+                CommandInterpreter commander = (CommandInterpreter)Activator.CreateInstance(type, new object[] { input });
+            }
+        }
+    }
+}
