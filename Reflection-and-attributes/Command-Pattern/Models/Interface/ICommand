@@ -1,0 +1,12 @@
+namespace CommandPattern.Models.Interface
+{
+    public interface ICommand
+    {
+        void Execute(string[] args);
+
+        void HelloCommand(string arg);
+
+        void ExitCommand();
+    }
+
+}
