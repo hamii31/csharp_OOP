@@ -1,0 +1,41 @@
+using CommandPattern.Models.Interface;
+using System;
+
+namespace CommandPattern.Models
+{
+    public class CommandInterpreter : ICommandInterpreter, ICommand
+    {
+        public CommandInterpreter() { }
+        public CommandInterpreter(string args)
+        {
+            Read(args);
+        }
+        public void Execute(string[] args)
+        {
+            if (args.Length == 2)
+            {
+                HelloCommand(args[1]);
+            }
+            else if (args.Length == 1)
+            {
+                ExitCommand();
+            }
+        }
+
+        public void ExitCommand()
+        {
+            Environment.Exit(0);
+        }
+
+        public void HelloCommand(string arg)
+        {
+            Console.WriteLine($"Hello, {arg}");
+        }
+
+        public void Read(string args)
+        {
+            string[] splitted = args.Split(" ", StringSplitOptions.RemoveEmptyEntries);
+            Execute(splitted);
+        }
+    }
+}
