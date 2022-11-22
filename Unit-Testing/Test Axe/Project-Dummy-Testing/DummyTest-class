@@ -1,0 +1,56 @@
+using NUnit.Framework;
+using System;
+
+namespace DummyTesting
+{
+    public class Tests
+    {
+        [Test]
+        public void TestIfDummyLosesHealthWhenAttacked()
+        {
+            var attackPoints = 5;
+            var durabilityPoints = 20;
+            Axe axe = new Axe(attackPoints, durabilityPoints);
+            var health = 20;
+            var experience = 0;
+            Dummy target = new Dummy(health, experience);
+            axe.Attack(target);
+            Assert.That(target.Health , Is.EqualTo(15), "Dummy doesn't take damage");
+        }
+        [Test]
+        public void TestIfDeadDummyThrowsAnExceptionIfAttacked()
+        {
+            var attackPoints = 5;
+            var durabilityPoints = 20;
+            Axe axe = new Axe(attackPoints, durabilityPoints);
+            var health = 0;
+            var experience = 0;
+            Dummy target = new Dummy(health, experience);
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                 axe.Attack(target); 
+            });
+        }
+        [Test]
+        public void TestIfDeadDummyCanGiveXP()
+        {
+            var health = 0;
+            var experience = 5;
+            Dummy target = new Dummy(health, experience);
+            var givenExperience = 0;
+            givenExperience = target.GiveExperience();
+            Assert.That(givenExperience, Is.EqualTo(5), "Dead dummy doesn't give experience");
+        }
+        [Test]
+        public void TestIfAliveDummyCanGiveXp()
+        {
+            var health = 1;
+            var experience = 5;
+            Dummy target = new Dummy(health, experience);
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                target.GiveExperience();
+            });
+        }
+    }
+}
