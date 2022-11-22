@@ -1,0 +1,98 @@
+using ExtendedDatabase;
+using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+
+namespace DatabaseExtendedTesting
+{
+    public class Tests
+    {
+
+        [Test]
+        public void TestAddMethod()
+        {
+            Person spiderman = new Person(922232323232, "Peter");
+            Person peterParker = new Person(922232323232, "Peter");
+            Database data = new Database();
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                data.Add(spiderman);
+                data.Add(peterParker);
+            });
+        }
+       
+        [Test]
+        public void TestRemoveMethod()
+        {
+            Database data = new Database();
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                data.Remove();
+            });
+        }
+        [Test]
+        public void TestFindByUsernameMethodNoPersonPresent() 
+        {
+            Person ivan = new Person(4206912, "Ivan");
+            Database data = new Database();
+            data.Add(ivan);
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                data.FindByUsername("Petur");
+            });
+        }
+        [Test]
+        public void TestFindByUsernameMethodParameterIsNull()
+        {
+            Person ivan = new Person(4206912, "Ivan");
+            Database data = new Database();
+            data.Add(ivan);
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                data.FindByUsername("");
+            });
+        }
+        [Test]
+        public void TestFindByIdMethodNoPersonPresent()
+        {
+            Person ivan = new Person(4206912, "Ivan");
+            Database data = new Database();
+            data.Add(ivan);
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                data.FindById(007);
+            });
+        }
+        [Test]
+        public void TestFindByIdMethodNegativeIdsFound()
+        {
+            Person ivan = new Person(4206912, "Ivan");
+            Database data = new Database();
+            data.Add(ivan);
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+            {
+                data.FindById(-1);
+            });
+        }
+        [Test]
+        public void TestNameConstructorInPersonClass()
+        {
+            var name = "Peter";
+            Person person = new Person(202, name);
+            Assert.That(person.UserName is string, Is.True);
+        }
+        [Test]
+        public void TestIdConstructorInPersonClass()
+        {
+            var id = 2020;
+            Person person = new Person(id, "Stephano");
+            Assert.That(person.Id is long, Is.True);
+        }
+        [Test]
+        public void TestCountConstructorInDatabaseClass()
+        {
+            Database data = new Database();
+            Assert.That(data.Count is int, Is.True);
+        }
+    }
+}
