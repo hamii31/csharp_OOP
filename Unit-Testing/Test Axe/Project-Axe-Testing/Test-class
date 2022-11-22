@@ -1,0 +1,35 @@
+using NUnit.Framework;
+using System;
+
+namespace AxeTesting
+{
+    public class Tests
+    {
+        [Test]
+        public void TestIfWeaponLosesDurabilityWhenAttacking()
+        {
+            var attackPoints = 5;
+            var durabilityPoints = 20;
+            Axe axe = new Axe(attackPoints, durabilityPoints);
+            var health = 20;
+            var experience = 0;
+            Dummy target = new Dummy(health, experience);
+            axe.Attack(target);
+            Assert.That(axe.DurabilityPoints, Is.EqualTo(19), "Axe doesn't lose durabilty");
+        }
+        [Test]
+        public void TestAttackingWithABrokenAxe()
+        {
+            var attackPoints = 5;
+            var durabilityPoints = 0;
+            Axe axe = new Axe(attackPoints, durabilityPoints);
+            var health = 20;
+            var experience = 0;
+            Dummy target = new Dummy(health, experience);
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                axe.Attack(target);
+            });
+        }
+    }
+}
