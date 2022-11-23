@@ -1,0 +1,72 @@
+
+using NUnit.Framework;
+using System;
+
+namespace CarManager.Test
+{
+    public class Tests
+    {
+        [Test]
+        public void TestConstructors()
+        {
+            Car car = new Car("BMW", "SUV", 20, 100);
+            Assert.That(car.Make is string, Is.True);
+            Assert.That(car.Model is string, Is.True);
+            Assert.That(car.FuelCapacity is double, Is.True);
+            Assert.That(car.FuelConsumption is double, Is.True);
+        }
+        [Test]
+        public void TestGettersAndSetters()
+        {
+            var expectedMake = "Skoda";
+            var expectedModel = "Octavia";
+            var expectedFuelConsumption = 20;
+            var expectedFuelCapacity = 100;
+            Car car = new Car(expectedMake, expectedModel, expectedFuelConsumption, expectedFuelCapacity);
+            Assert.AreEqual(car.Make, expectedMake, "Make doesn't get and set the value you enter");
+            Assert.AreEqual(car.Model, expectedModel, "Model doesn't get and set the value you enter");
+            Assert.AreEqual(car.FuelConsumption, expectedFuelConsumption, "FuelConsumption doesn't get and set the value you enter");
+            Assert.AreEqual(car.FuelCapacity, expectedFuelCapacity, "FuelCapacity doesn't get and set the value you enter");
+        }
+        [Test]
+        public void TestIfSettersThrowException()
+        {
+            Assert.Throws<ArgumentException>(() =>
+            {
+                Car car = new Car("", "", 0, -1);
+            });
+        }
+        [Test]
+        public void TestRefuelMethod()
+        {
+            Car car = new Car("Audi", "A8", 20, 50);
+
+            double refuelAmount = 0;
+            Assert.Throws<ArgumentException>(() =>
+            {
+                car.Refuel(refuelAmount);
+            });
+            refuelAmount = -1;
+            Assert.Throws<ArgumentException>(() =>
+            {
+                car.Refuel(refuelAmount);
+            });
+
+            refuelAmount = 20;
+            Assert.That(refuelAmount is double, Is.True);
+            Assert.That(refuelAmount.GetType(), Is.EqualTo(car.FuelAmount.GetType()));
+        }
+        [Test]
+        public void TestDriveMethod()
+        {
+            Car car = new Car("Tesla", "Y", 1, 20);
+            double expectedDistance = 200;
+            Assert.That(expectedDistance is double, Is.True);
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                car.Drive(expectedDistance);
+            });
+            Assert.That(expectedDistance.GetType(), Is.EqualTo(car.FuelAmount.GetType()));
+        }
+    }
+}
