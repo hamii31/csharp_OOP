@@ -1,0 +1,285 @@
+using NUnit.Framework;
+using System;
+
+namespace FightingArena.Test
+{
+    public class Tests
+    {
+
+        [Test]
+        public void TestName()
+        {
+            string name = "";
+            int damage = 20;
+            int hp = 100;
+            Assert.Throws<ArgumentException>(() =>
+            {
+                Warrior warrior = new Warrior(name, damage, hp);
+            });
+        }
+        [Test]
+        public void TestDamageZero()
+        {
+            string name = "Brutalicus";
+            int damage = 0;
+            int hp = 100;
+            Assert.Throws<ArgumentException>(() =>
+            {
+                Warrior warrior = new Warrior(name, damage, hp);
+            });
+        }
+        [Test]
+        public void TestDamageNegative() 
+        {
+            string name = "Brutalicus";
+            int damage = -1;
+            int hp = 100;
+            Assert.Throws<ArgumentException>(() =>
+            {
+                Warrior warrior = new Warrior(name, damage, hp);
+            });
+        }
+        [Test]
+        public void TestHP()
+        {
+            string name = "Brutalicus";
+            int damage = 20;
+            int hp = -1;
+            Assert.Throws<ArgumentException>(() =>
+            {
+                Warrior warrior = new Warrior(name, damage, hp);
+            });
+        }
+        [Test]
+        public void TestIfWarriorCanAttackUnder30HP()
+        {
+            string name = "Brutalicus";
+            int damage = 20;
+            int hp = 30;
+            Warrior warrior = new Warrior(name, damage, hp);
+
+            string name1 = "Spartacus";
+            int damage1 = 20;
+            int hp1 = 50;
+            Warrior warrior2 = new Warrior(name1, damage1, hp1);
+
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                warrior.Attack(warrior2);
+            });
+        }
+        [Test]
+        public void TestIfWarriorCanAttackOtherWarriorWhoIsUnder30HP()
+        {
+            string name = "Brutalicus";
+            int damage = 20;
+            int hp = 50;
+            Warrior warrior = new Warrior(name, damage, hp);
+
+            string name1 = "Spartacus";
+            int damage1 = 20;
+            int hp1 = 30;
+            Warrior warrior2 = new Warrior(name1, damage1, hp1);
+
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                warrior.Attack(warrior2);
+            });
+        }
+        [Test]
+        public void TestIfWarriorCanAttackStrongerWarriors()
+        {
+            string name = "Brutalicus";
+            int damage = 20;
+            int hp = 50;
+            Warrior warrior = new Warrior(name, damage, hp);
+
+            string name1 = "Spartacus";
+            int damage1 = 60;
+            int hp1 = 50;
+            Warrior warrior2 = new Warrior(name1, damage1, hp1);
+
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                warrior.Attack(warrior2);
+            });
+        }
+        [Test]
+        public void TestIfCanEnrollAgain()
+        {
+            string name = "Brutalicus";
+            int damage = 20;
+            int hp = 50;
+            Warrior warrior = new Warrior(name, damage, hp);
+
+            Arena arena = new Arena();
+            arena.Enroll(warrior);
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                arena.Enroll(warrior);
+            });
+        }
+        [Test]
+        public void TestIfUnEnrolledCanFight()
+        {
+            string name = "Brutalicus";
+            int damage = 20;
+            int hp = 50;
+            Warrior warrior = new Warrior(name, damage, hp);
+
+            string name1 = "Spartacus";
+            int damage1 = 20;
+            int hp1 = 50;
+            Warrior warrior2 = new Warrior(name1, damage1, hp1);
+
+            Arena arena = new Arena();
+            arena.Enroll(warrior);
+
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                arena.Fight("Brutalicus", "Spartacus");
+            });
+        }
+        [Test]
+        public void TestNameGetters()
+        {
+            string name = "Brutalicus";
+            int damage = 50;
+            int hp = 150;
+            Warrior warrior = new Warrior(name, damage, hp);
+
+            string actualName = warrior.Name;
+            Assert.AreEqual(actualName, name);
+        }
+        [Test]
+        public void TestDamageGetters()
+        {
+            string name = "Brutalicus";
+            int damage = 50;
+            int hp = 150;
+            Warrior warrior = new Warrior(name, damage, hp);
+            
+            int actualDamage = warrior.Damage;
+            Assert.AreEqual(actualDamage, damage);
+        }
+        [Test]
+        public void TestHPGetters() 
+        {
+            string name = "Brutalicus";
+            int damage = 50;
+            int hp = 150;
+            Warrior warrior = new Warrior(name, damage, hp);
+
+            int actualHP = warrior.HP;
+            Assert.AreEqual(actualHP, hp);
+        }
+        [Test]
+        public void TestIfDamageRemovesHP()
+        {
+            string name = "Brutalicus";
+            int damage = 50;
+            int hp = 200;
+            Warrior warrior = new Warrior(name, damage, hp);
+
+            string name1 = "Spartacus";
+            int damage1 = 20;
+            int hp1 = 150;
+            Warrior warrior2 = new Warrior(name1, damage1, hp1);
+
+            warrior.Attack(warrior2);
+
+            Assert.AreEqual(100, warrior2.HP);
+        }
+        [Test]
+        public void TestDamageIsMoreThanWarriorsHealth()
+        {
+            string name = "Brutalicus";
+            int damage = 51;
+            int hp = 200;
+            Warrior warrior = new Warrior(name, damage, hp);
+
+            string name1 = "Spartacus";
+            int damage1 = 20;
+            int hp1 = 50;
+            Warrior warrior2 = new Warrior(name1, damage1, hp1);
+
+            warrior.Attack(warrior2);
+
+            Assert.AreEqual(0, warrior2.HP);
+        }
+        [Test]
+        public void TestAttackFunctionality()
+        {
+            string name = "Brutalicus";
+            int damage = 50;
+            int hp = 200;
+            Warrior warrior = new Warrior(name, damage, hp);
+
+            string name1 = "Spartacus";
+            int damage1 = 20;
+            int hp1 = 50;
+            Warrior warrior2 = new Warrior(name1, damage1, hp1);
+
+            warrior.Attack(warrior2);
+
+            Assert.AreEqual(0, warrior2.HP);
+        }
+        [Test]
+        public void TestIfNobodyIsEnrolled()
+        {
+            string name = "Brutalicus";
+            int damage = 20;
+            int hp = 50;
+            Warrior warrior = new Warrior(name, damage, hp);
+
+            string name1 = "Spartacus";
+            int damage1 = 20;
+            int hp1 = 50;
+            Warrior warrior2 = new Warrior(name1, damage1, hp1);
+
+            Arena arena = new Arena();
+
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                arena.Fight("Brutalicus", "Spartacus");
+            });
+        }
+        [Test]
+        public void TestIfAttackerIsNotEnrolled()
+        {
+            string name = "Brutalicus";
+            int damage = 20;
+            int hp = 50;
+            Warrior warrior = new Warrior(name, damage, hp);
+
+            string name1 = "Spartacus";
+            int damage1 = 20;
+            int hp1 = 50;
+            Warrior warrior2 = new Warrior(name1, damage1, hp1);
+
+            Arena arena = new Arena();
+            arena.Enroll(warrior2);
+
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                arena.Fight("Brutalicus", "Spartacus");
+            });
+        }
+        //[Test]
+        //public void TestIfTheSameWarriorCanFightHimself()
+        //{
+        //    string name1 = "Spartacus";
+        //    int damage1 = 20;
+        //    int hp1 = 50;
+        //    Warrior warrior2 = new Warrior(name1, damage1, hp1);
+
+        //    Arena arena = new Arena();
+        //    arena.Enroll(warrior2);
+
+        //    Assert.Throws<InvalidOperationException>(() =>
+        //    {
+        //        arena.Fight("Spartacus", "Spartacus");
+        //    });
+        //}
+    }
+}
