@@ -1,8 +1,8 @@
 using System;
 using NUnit.Framework;
-{
-    namespace FootballTeam.Tests
 
+namespace FootballTeam.Tests
+{
     public class Tests
     {
         private FootballPlayer player;
