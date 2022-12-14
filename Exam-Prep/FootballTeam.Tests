@@ -1,8 +1,7 @@
-namespace FootballTeam.Tests
+using System;
+using NUnit.Framework;
 {
-    using System;
-
-    using NUnit.Framework;
+    namespace FootballTeam.Tests
 
     public class Tests
     {
