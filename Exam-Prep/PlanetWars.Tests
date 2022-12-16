@@ -1,0 +1,243 @@
+using NUnit.Framework;
+using System;
+using System.ComponentModel;
+using System.Linq;
+
+namespace PlanetWars.Tests
+{
+    public class Tests
+    {
+
+        [Test]
+        public void TestPlanetConstructor()
+        {
+            string name = "XZ";
+            double budget = 20;
+            Planet planet = new Planet(name, budget);
+            Assert.AreEqual(name, planet.Name);
+            Assert.AreEqual(budget, planet.Budget);
+        }
+
+        [Test]
+        public void TestProfitMethod()
+        {
+            string name = "XZ";
+            double budget = 20;
+            Planet planet = new Planet(name, budget);
+            double amount = 10;
+            planet.Profit(amount);
+            Assert.AreEqual(30, planet.Budget);
+        }
+        [Test]
+        public void TestSpendFundsMethod()
+        {
+            string name = "XZ";
+            double budget = 20;
+            Planet planet = new Planet(name, budget);
+            Assert.Throws<InvalidOperationException>(() => { planet.SpendFunds(30); });
+        }
+        [Test]
+        public void TestSpendFundsMethod2()
+        {
+            string name = "XZ";
+            double budget = 20;
+            Planet planet = new Planet(name, budget);
+            double amount = 10;
+            planet.SpendFunds(amount);
+            Assert.AreEqual(10, planet.Budget);
+        }
+        [Test]
+        public void TestWeaponConstructor()
+        {
+            string name = "Big G";
+            double price = 2000;
+            int destructionlevel = 10;
+            Weapon weapon = new Weapon(name, price, destructionlevel);
+            Assert.AreEqual(name, weapon.Name);
+            Assert.AreEqual(price, weapon.Price);
+            Assert.AreEqual(destructionlevel, weapon.DestructionLevel);
+        }
+        [Test]
+        public void TestAddWeaponMethod()
+        {
+            string name = "XZ";
+            double budget = 20;
+            Planet planet = new Planet(name, budget); 
+
+            string weaponName = "Big G";
+            double price = 2000;
+            int destructionlevel = 10;
+            Weapon weapon = new Weapon(weaponName, price, destructionlevel);
+
+            planet.AddWeapon(weapon);
+
+            Weapon weapon2 = new Weapon(weaponName, price, destructionlevel);
+
+            Assert.Throws<InvalidOperationException>(() => { planet.AddWeapon(weapon2); });
+        }
+        [Test]
+        public void TestAddWeaponMethod2()
+        {
+            string name = "XZ";
+            double budget = 20;
+            Planet planet = new Planet(name, budget);
+
+            string weaponName = "Big G";
+            double price = 2000;
+            int destructionlevel = 10;
+            Weapon weapon = new Weapon(weaponName, price, destructionlevel);
+
+            planet.AddWeapon(weapon);
+
+            Assert.That(planet.Weapons.Contains(weapon), Is.True);
+        }
+        [Test]
+        public void TestRemoveWeaponMethod()
+        {
+            string name = "XZ";
+            double budget = 20;
+            Planet planet = new Planet(name, budget);
+
+            string weaponName = "Big G";
+            double price = 2000;
+            int destructionlevel = 10;
+            Weapon weapon = new Weapon(weaponName, price, destructionlevel);
+
+            planet.AddWeapon(weapon);
+            planet.RemoveWeapon("Big G");
+
+            Assert.That(planet.Weapons.Contains(weapon), Is.False);
+        }
+        [Test]
+        public void TestUpgradeWeaponMethod()
+        {
+            string name = "XZ";
+            double budget = 20;
+            Planet planet = new Planet(name, budget);
+
+            string weaponName = "Big G";
+            double price = 2000;
+            int destructionlevel = 10;
+            Weapon weapon = new Weapon(weaponName, price, destructionlevel);
+
+            planet.AddWeapon(weapon);
+
+            Assert.Throws<InvalidOperationException>(() => { planet.UpgradeWeapon("Small G"); });
+        }
+        [Test]
+        public void TestIncreaseDestructionLevelMethod()
+        {
+            string weaponName = "Big G";
+            double price = 2000;
+            int destructionlevel = 10;
+            Weapon weapon = new Weapon(weaponName, price, destructionlevel);
+
+            weapon.IncreaseDestructionLevel();
+            Assert.AreEqual(11, weapon.DestructionLevel);
+        }
+        [Test]
+        public void TestIfIsNuclearBoolWorks()
+        {
+            string weaponName = "Big G";
+            double price = 2000;
+            int destructionlevel = 10;
+            Weapon weapon = new Weapon(weaponName, price, destructionlevel);
+
+            Assert.That(weapon.IsNuclear, Is.True);
+        }
+        [Test]
+        public void TestUpgradeWeaponMethod2()
+        {
+            string name = "XZ";
+            double budget = 20;
+            Planet planet = new Planet(name, budget);
+
+            string weaponName = "Big G";
+            double price = 2000;
+            int destructionlevel = 10;
+            Weapon weapon = new Weapon(weaponName, price, destructionlevel);
+
+            planet.AddWeapon(weapon);
+            planet.UpgradeWeapon("Big G");
+
+            Assert.AreEqual(11, weapon.DestructionLevel);
+        }
+        [Test]
+        public void TestMilitaryPowerRatio()
+        {
+            string name = "XZ";
+            double budget = 20;
+            Planet planet = new Planet(name, budget);
+
+            string weaponName = "Big G";
+            double price = 2000;
+            int destructionlevel = 10;
+            Weapon weapon = new Weapon(weaponName, price, destructionlevel);
+
+            string weaponName2 = "Big GX";
+            double price2 = 3500;
+            int destructionlevel2 = 20;
+            Weapon weapon2 = new Weapon(weaponName2, price2, destructionlevel2);
+
+
+            planet.AddWeapon(weapon);
+            planet.AddWeapon(weapon2);
+
+            Assert.AreEqual(30, planet.MilitaryPowerRatio);
+        }
+        [Test]
+        public void TestDestructOpponentMethod()
+        {
+            string name = "XZ";
+            double budget = 20;
+            Planet planet = new Planet(name, budget);
+
+            string name2 = "BSS";
+            double budget2 = 30;
+            Planet planet2 = new Planet(name2, budget2);
+
+            string weaponName = "Big G";
+            double price = 2000;
+            int destructionlevel = 10;
+            Weapon weapon = new Weapon(weaponName, price, destructionlevel);
+
+            planet.AddWeapon(weapon);
+
+            string weaponName2 = "Big GX";
+            double price2 = 3500;
+            int destructionlevel2 = 20;
+            Weapon weapon2 = new Weapon(weaponName2, price2, destructionlevel2);
+
+            planet2.AddWeapon(weapon2);
+
+            Assert.Throws<InvalidOperationException>(() => { planet.DestructOpponent(planet2); });
+        }
+        [Test]
+        public void TestDestructOpponentMethod2()
+        {
+            string name = "XZ";
+            double budget = 20;
+            Planet planet = new Planet(name, budget);
+
+            string name2 = "BSS";
+            double budget2 = 30;
+            Planet planet2 = new Planet(name2, budget2);
+
+            string weaponName = "Big G";
+            double price = 2000;
+            int destructionlevel = 10;
+            Weapon weapon = new Weapon(weaponName, price, destructionlevel);
+
+            planet.AddWeapon(weapon);
+
+            string weaponName2 = "Small G";
+            double price2 = 1500;
+            int destructionlevel2 = 5;
+            Weapon weapon2 = new Weapon(weaponName2, price2, destructionlevel2);
+
+            planet2.AddWeapon(weapon2);
+
+            Assert.AreEqual($"BSS is destructed!", planet.DestructOpponent(planet2));
+        }
+    }
+}
